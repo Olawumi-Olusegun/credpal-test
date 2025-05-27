@@ -11,6 +11,11 @@ const Countdown = () => {
         }
     }
 
+    const timeFormat = (time: number) => {
+        const minutes = Math.floor(time / 60);
+        return minutes;
+    }
+
     useEffect(() => {
         const interval = setInterval(() => {
             if (time > 0) {
@@ -18,13 +23,15 @@ const Countdown = () => {
             } else {
                 clearInterval(interval);
             }
-        })
-    }, []);
+        }, 1000)
+
+        return () => clearInterval(interval);
+    }, [time]);
 
     return (
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100vh" }}>
             <h2>Countdown</h2>
-            {time}
+            {time}: 00
             <input type="number" onChange={(event) => setInput(Number(event?.target.value))} />
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 5 }}>
                 <button
